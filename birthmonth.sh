@@ -1,26 +1,22 @@
 #!/bin/bash -x
 
- val=demo1
- $val[0]="1"
- echo "${demo1[0]}"
-declare -A person
-for (( i=1; i<=50; i++ ))
+no_of_individuals=50
+declare -A birth_day
+echo "The birthday month and year of $no_of_individuals individuals are: "
+for(( individual = 1; individual <= no_of_individuals; individual++ ))
 do
-	month=$(( $((RANDOM%12))+1 ))
-	person[$((i))]=$month
+    (( birth_month = RANDOM % 12 + 1 ))
+    (( birth_year = RANDOM % 2 + 92 ))
+    echo "individual $individual has birthday in month $birth_month year $birth_year "
+    birth_day[$birth_month]+=" ${individual}"
 done
 
-	echo "${person[@]}"
-
-for (( m=1; m<=12; m++ ))
+for month in ${!birth_day[@]}
 do
-	n=0
-	for (( j=1; j<=50; j++ ))
-	do
-		if (( ${person[$((j))]} == $m ))
-		then
-			arry$m[$((n++))]="$j"
-		fi
-	done
+    echo "The individuals who are having birthday in month $month are: "
+    for individual in ${birth_day[$month]}
+    do
+        echo -n "$individual ";
+    done
+    echo
 done
-	echo "${arry1[1]}  ${arry2[2]}"
